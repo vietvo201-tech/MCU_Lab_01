@@ -26,7 +26,12 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-
+struct time
+{
+	int hour;
+	int minute;
+	int second;
+};
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -47,8 +52,10 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
-
+void setNumberOnClock(int num);
+void clearNumberOnClock(int num);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -84,16 +91,44 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  struct time time = { 11, 59, 50 };
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /* USER CODE END WHILE */
+	time.hour = time.hour > 11 ? time.hour - 12 : time.hour;
+	int tmpHour = time.hour;
+	int tmpMinute = time.minute;
+	int tmpSecond = time.second;
+	setNumberOnClock(time.hour);
+	setNumberOnClock(time.minute / 5);
+	setNumberOnClock(time.second / 5);
+	HAL_Delay(1000);
 
+	time.second++;
+	if (time.second == 60)
+	{
+		time.second = 0;
+		time.minute++;
+		if (time.minute == 60)
+		{
+			time.minute = 0;
+			time.hour++;
+			if (time.hour == 12)
+				time.hour = 0;
+		}
+	}
+
+	clearNumberOnClock(tmpSecond / 5);
+	if ((time.minute / 5) != (tmpMinute / 5))
+		clearNumberOnClock(tmpMinute / 5);
+	if (time.hour != tmpHour)
+		clearNumberOnClock(tmpHour);
+    /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -135,8 +170,52 @@ void SystemClock_Config(void)
   }
 }
 
-/* USER CODE BEGIN 4 */
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
 
+  /* USER CODE END MX_GPIO_Init_1 */
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7
+                          |GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
+                          |GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15, GPIO_PIN_SET);
+
+  /*Configure GPIO pins : PA4 PA5 PA6 PA7
+                           PA8 PA9 PA10 PA11
+                           PA12 PA13 PA14 PA15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_4|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7
+                          |GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
+                          |GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+
+  /* USER CODE END MX_GPIO_Init_2 */
+}
+
+/* USER CODE BEGIN 4 */
+void setNumberOnClock(int num)
+{
+	HAL_GPIO_WritePin(GPIOA, (uint16_t)(1 << (num + 4)), GPIO_PIN_RESET);
+}
+
+void clearNumberOnClock(int num)
+{
+	HAL_GPIO_WritePin(GPIOA, (uint16_t)(1 << (num + 4)), GPIO_PIN_SET);
+}
 /* USER CODE END 4 */
 
 /**
