@@ -52,7 +52,6 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 void display7SEG(int num);
-void countDown();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -244,18 +243,6 @@ void display7SEG(int num)
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_4, !((seg >> 2) & 0x1));
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, !((seg >> 1) & 0x1));
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, !((seg >> 0) & 0x1));
-}
-
-void countDown()
-{
-	int counter = 9;
-	while (1)
-	{
-		if(counter < 0)
-			counter = 9;
-		display7SEG(counter--);
-		HAL_Delay(1000);
-	}
 }
 /* USER CODE END 4 */
 
