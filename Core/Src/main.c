@@ -46,6 +46,14 @@
 /* USER CODE BEGIN PV */
 int8_t counter = 0;
 uint32_t lastCounter = 0;
+/*
+  * 0 = SN-Green |EW-Red
+  * 1 = SN-Yellow|EW-Red
+  * 2 = EW-Green |SN_Red
+  * 3 = EW_Yellow|SN-Red
+ */
+ uint8_t state = 0;
+ uint8_t stateChanged = 1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -105,14 +113,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  /*
-    * 0 = SN-Green |EW-Red
-    * 1 = SN-Yellow|EW-Red
-    * 2 = EW-Green |SN_Red
-    * 3 = EW_Yellow|SN-Red
-   */
-   uint8_t state = 0;
-   uint8_t stateChanged = 1;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
