@@ -107,7 +107,7 @@ int main(void)
 	setNumberOnClock(time.hour);
 	setNumberOnClock(time.minute / 5);
 	setNumberOnClock(time.second / 5);
-	HAL_Delay(1000);
+	HAL_Delay(4);
 
 	time.second++;
 	if (time.second == 60)
