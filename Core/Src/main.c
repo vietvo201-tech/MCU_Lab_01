@@ -89,9 +89,9 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
-  int counter = RED_TIMER;
-  uint8_t state = 0;	// 0=RED, 1=YELLOW, 2=GREEN
+  HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+  int counter = GREEN_TIMER;
+  uint8_t state = 0;	// 2=RED, 1=YELLOW, 0=GREEN
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,7 +102,7 @@ int main(void)
 	{
 		if (state == 0)
 		{
-			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+			HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 			HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
 
 			counter = YELLOW_TIMER;
@@ -111,17 +111,17 @@ int main(void)
 		else if (state == 1)
 		{
 			HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-			HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
+			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 
-			counter = GREEN_TIMER;
+			counter = RED_TIMER;
 			state = 2;
 		}
 		else
 		{
-			HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
+			HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
 
-			counter = RED_TIMER;
+			counter = GREEN_TIMER;
 			state = 0;
 		}
 	}
