@@ -141,7 +141,7 @@ int main(void)
 		}
 		updateCounter(now);
 
-		if (counter < 0)
+		if (counter < 1)
 		{
 			state = 1;
 			stateChanged = 1;
@@ -167,7 +167,7 @@ int main(void)
 		}
 		updateCounter(now);
 
-		if (counter < 0)
+		if (counter < 1)
 		{
 			state = 2;
 			stateChanged = 1;
@@ -218,7 +218,7 @@ int main(void)
 		}
 		updateCounter(now);
 
-		if (counter < 0)
+		if (counter < 1)
 		{
 			state = 0;
 			stateChanged = 1;

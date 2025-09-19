@@ -181,11 +181,11 @@ int main(void)
  80001d4:	6878      	ldr	r0, [r7, #4]
  80001d6:	f000 f9ef 	bl	80005b8 <updateCounter>
 
-		if (counter < 0)
+		if (counter < 1)
  80001da:	4b68      	ldr	r3, [pc, #416]	@ (800037c <main+0x230>)
  80001dc:	f993 3000 	ldrsb.w	r3, [r3]
  80001e0:	2b00      	cmp	r3, #0
- 80001e2:	f280 80bc 	bge.w	800035e <main+0x212>
+ 80001e2:	f300 80bc 	bgt.w	800035e <main+0x212>
 		{
 			state = 1;
  80001e6:	4b62      	ldr	r3, [pc, #392]	@ (8000370 <main+0x224>)
@@ -258,11 +258,11 @@ int main(void)
  8000256:	6878      	ldr	r0, [r7, #4]
  8000258:	f000 f9ae 	bl	80005b8 <updateCounter>
 
-		if (counter < 0)
+		if (counter < 1)
  800025c:	4b47      	ldr	r3, [pc, #284]	@ (800037c <main+0x230>)
  800025e:	f993 3000 	ldrsb.w	r3, [r3]
  8000262:	2b00      	cmp	r3, #0
- 8000264:	da7d      	bge.n	8000362 <main+0x216>
+ 8000264:	dc7d      	bgt.n	8000362 <main+0x216>
 		{
 			state = 2;
  8000266:	4b42      	ldr	r3, [pc, #264]	@ (8000370 <main+0x224>)
@@ -404,11 +404,11 @@ int main(void)
  8000340:	6878      	ldr	r0, [r7, #4]
  8000342:	f000 f939 	bl	80005b8 <updateCounter>
 
-		if (counter < 0)
+		if (counter < 1)
  8000346:	4b0d      	ldr	r3, [pc, #52]	@ (800037c <main+0x230>)
  8000348:	f993 3000 	ldrsb.w	r3, [r3]
  800034c:	2b00      	cmp	r3, #0
- 800034e:	da0c      	bge.n	800036a <main+0x21e>
+ 800034e:	dc0c      	bgt.n	800036a <main+0x21e>
 		{
 			state = 0;
  8000350:	4b07      	ldr	r3, [pc, #28]	@ (8000370 <main+0x224>)
