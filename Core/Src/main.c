@@ -87,7 +87,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-
+  int counter = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -99,9 +99,15 @@ int main(void)
 		HAL_GPIO_TogglePin(GPIOA, (uint16_t)(1 << i));
 		HAL_Delay(50);
 	}
-	HAL_Delay(500);
-	clearAllClock();
-	HAL_Delay(500);
+	if (counter == 2)
+	{
+		clearAllClock();
+		HAL_Delay(1000);
+		counter = 0;
+	}
+	else
+		counter++;
+
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
   }
