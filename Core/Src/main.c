@@ -94,7 +94,14 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	for (int i = 4; i < 16; i++)
+	{
+		HAL_GPIO_TogglePin(GPIOA, (uint16_t)(1 << i));
+		HAL_Delay(50);
+	}
+	HAL_Delay(500);
 	clearAllClock();
+	HAL_Delay(500);
     /* USER CODE END WHILE */
     /* USER CODE BEGIN 3 */
   }
